@@ -1,0 +1,23 @@
+---
+- name: "install w/pip Django & Django Rest in VEnv "
+  pip:
+    virtualenv: /home/ubuntu/aws_ec2/venv
+    name: 
+      - django 
+      - djangorestframework
+    state: latest
+
+- name: "checking redundancy of project initial files"
+  stat:
+    path: /home/ubuntu/aws_ec2/setup/settings.py
+  register: project
+
+- name: "activate & place Django Configs in VEnv"
+  shell: '. /home/ubuntu/aws_ec2/venv/bin/activate; django-admin startproject setup /home/ubuntu/aws_ec2/'
+  when: not project.stat.exists
+
+- name: "change Django host in config file"
+  lineinfile: 
+    path: /home/ubuntu/aws_ec2/setup/settings.py
+    regexp: 'ALLOWED_HOSTS'
+    line: 'ALLOWED_HOSTS = ["*"]'
