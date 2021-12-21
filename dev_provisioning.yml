@@ -2,5 +2,4 @@
 
 - hosts: "54.146.15.54"
   roles:
-    - python
-    - django
+    - dev
