@@ -2,4 +2,5 @@
 
 - hosts: "54.146.15.54"
   roles:
-    - dev
+    - role: "/dev/python"
+    - role: "/dev/django"
