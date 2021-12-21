@@ -2,5 +2,5 @@
 
 - hosts: "54.146.15.54"
   roles:
-    - role: "/vagrant/roles/dev/python"
-    - role: "vagrant/roles/dev/django"
+    - python
+    - django
