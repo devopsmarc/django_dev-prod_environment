@@ -1,6 +1,6 @@
 ---
 
-- hosts: "54.146.15.54"
+- hosts: dev
   roles:
     - python
     - django

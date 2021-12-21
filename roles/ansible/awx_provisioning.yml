@@ -1,0 +1,6 @@
+---
+
+- hosts: ansible
+  become: yes
+  roles:
+    - awx
