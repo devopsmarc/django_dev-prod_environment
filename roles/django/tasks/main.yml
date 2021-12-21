@@ -1,6 +1,13 @@
 ---
 # tasks file for django
-- name: "use pip to install Django & Django Rest in VEnv"
+- name: "clone Django API from Github repository"  
+  ansible.builtin.git: 
+    repo: "{{ git_repo }}"
+    dest: "{{ install_dir }}"
+    version: master
+    force: yes 
+
+- name: "install w/pip Django & Django Rest in VEnv "
   pip:
     virtualenv: "{{ install_dir }}/venv"
     name: 
@@ -8,15 +15,11 @@
       - djangorestframework
     state: latest
 
-- name: "checking for redundancy, registering project initial files"
-  stat:
-    path: "{{ install_dir }}/setup/settings.py"
-  register: project
-
-- name: "activate & place Django Configs in VEnv"
-  shell: "{{ venv_activate_dir }}; django-admin startproject setup {{ install_dir }}"
-  when: not project.stat.exists
-  # ignore_errors: yes
+- name: "install w/pip Django & Django Rest modules in VEnv "
+  pip:
+    virtualenv: "{{ install_dir }}/venv"
+    requirements: "{{ install_dir }}/requirements.txt"
+    state: latest
 
 - name: "change Django host in config file"
   lineinfile: 
